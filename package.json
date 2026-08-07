@@ -1,0 +1,27 @@
+{
+  "name": "devtree",
+  "version": "1.0.0",
+  "description": "First project with express and typescript",
+  "homepage": "https://github.com/tiagorivero/devtree#readme",
+  "bugs": {
+    "url": "https://github.com/tiagorivero/devtree/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiagorivero/devtree.git"
+  },
+  "license": "ISC",
+  "author": "Tiago Rivero",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
