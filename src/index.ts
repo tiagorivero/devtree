@@ -4,6 +4,5 @@ import server from "./server"
 const PORT = process.env.PORT || 4000
 
 server.listen(PORT, () =>{
-  console.log(colors.bgBlue.magenta.italic(`Servidor Funcionando en el puerto: ${PORT}`))
+  console.log(colors.blue.bold(`Servidor Funcionando en el puerto: ${PORT}`))
 })
-
