@@ -9,14 +9,14 @@ export const createAccount = async (req : Request, res: Response) => {
 
     const userExists = await User.findOne({ email })
     if(userExists){
-        const error = new Error('El Usuario ya esta registrado')
+        const error = new Error('Un usuario con ese email ya esta registrado')
         return res.status(409).json({error: error.message})
     }
 
     const handle = slug(req.body.handle, '')
     const handleExists = await User.findOne({ handle })
     if(handleExists){
-        const error = new Error('Un usuario con ese email ya esta registrado')
+        const error = new Error('El Usuario ya esta registrado')
         return res.status(409).json({error: error.message})
     }
 
@@ -51,5 +51,5 @@ export const login = async (req: Request, res: Response) => {
         return res.status(401).json({error: error.message})
     }
 
-    res.send('Auntenticado...')
+    res.send({msg: 'Autenticando...'})
 }

@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { isAxiosError } from 'axios'
+import type { RegisterForm } from '../types'
 import ErrorMessage from '../components/ErrorMessage'
+import { toast } from 'sonner'
+import api from '../config/axios'
 
 export default function RegisterView() {
-  const initialValues = {
+  const initialValues : RegisterForm = {
     name: '',
     email: '',
     handle: '',
@@ -11,12 +15,20 @@ export default function RegisterView() {
     password_confirmation: ''
   }
 
-  const { register, watch, handleSubmit, formState: { errors } } = useForm({defaultValues : initialValues})
+  const { register, watch, reset,handleSubmit, formState: { errors } } = useForm({defaultValues : initialValues})
 
-  console.log(errors)
+  const password = watch('password')
 
-  const handleRegister = () => {
-    console.log('Desde HandleRegister')
+  const handleRegister = async (formData: RegisterForm) => {
+    try{
+      const {data} = await api.post(`/auth/register`, formData)
+      toast.success(data.msg)
+      reset()
+    } catch (error) {
+      if( isAxiosError(error) && error.response) {
+        toast.error(error.response.data.error)
+      }
+    }
   }
 
   return (
@@ -37,7 +49,11 @@ export default function RegisterView() {
               <label htmlFor="email" className="text-2xl text-slate-500">E-mail</label>
               <input id="email" type="email" placeholder="Email de Registro" className="bg-slate-100 border-none p-3 rounded-lg placeholder-slate-400" 
               {...register('email',{
-                required: "El email es obligatorio"
+                required: "El email es obligatorio",
+                pattern: {
+                  value: /^\S+@\S+\.\S+$/,
+                  message: 'Email no valido'
+                },
               })}
               />
               {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage> }
@@ -57,7 +73,11 @@ export default function RegisterView() {
               <label htmlFor="password" className="text-2xl text-slate-500">Password</label>
               <input id="password" type="password" placeholder="Password de Registro" className="bg-slate-100 border-none p-3 rounded-lg placeholder-slate-400" 
               {...register('password',{
-                required: "El Password es obligatorio"
+                required: "El Password es obligatorio",
+                minLength: { 
+                  value: 8,
+                  message: 'Minimo 8 caracteres'
+                }
               })}
               />
               {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage> }
@@ -67,7 +87,8 @@ export default function RegisterView() {
               <label htmlFor="password_confirmation" className="text-2xl text-slate-500">Repetir Password</label>
               <input id="password_confirmation" type="password" placeholder="Repetir Password" className="bg-slate-100 border-none p-3 rounded-lg placeholder-slate-400" 
               {...register('password_confirmation',{
-                required: "Repetir password es obligatorio"
+                required: "Repetir password es obligatorio",
+                validate: value => value === password || 'Los passwords no son iguales'
               })}
               />
               {errors.password_confirmation && <ErrorMessage>{errors.password_confirmation.message}</ErrorMessage> }
