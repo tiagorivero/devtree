@@ -39,9 +39,6 @@ router.patch('/user',
     body('handle')
         .notEmpty()
         .withMessage('El handle no puede ir vacio'),
-    body('description')
-        .notEmpty()
-        .withMessage('La description no puede ir vacio'),
     handleInputErrors,
     authenticate, 
     updateProfile
