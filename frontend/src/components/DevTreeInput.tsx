@@ -16,6 +16,7 @@ export default function DevTreeInput({item, handleUrlChange, handleEnableLink} :
                 className="w-12 h-12 bg-cover"
                 style={{ backgroundImage: `url('/social/icon_${item.name}.svg')` }}
             ></div>
+            
             <input 
                 type="text"
                 className="flex-1 border border-gray-100 rounded-lg"
