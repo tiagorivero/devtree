@@ -1,11 +1,13 @@
 # DevTree
 
 A Linktree clone: each user gets a public profile (`/your-handle`) with their links, reorderable via drag & drop.
+
 Link: https://tiagorivero-devtree.netlify.app/
 
 ## Stack
 
 **Backend:** Node · Express · TypeScript · MongoDB (Mongoose) · JWT · express-validator · Cloudinary
+
 **Frontend:** React · Vite · TypeScript · Tailwind · React Router · React Query · React Hook Form · Axios · dnd-kit
 
 ## Setup
